@@ -1,0 +1,20 @@
+services:
+  mysql:
+    container_name: 'post-sql-container'
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=postdatabase'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_ROOT_PASSWORD=verysecret'
+      - 'MYSQL_USER=myuser'
+    ports:
+      - '3307:3306'
+  mongo:
+    container_name: 'post-mongo-container'
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB_DATABASE=mediadatabase'
+      - 'MONGO_INITDB_ROOT_USERNAME=myuser'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+    ports:
+      - '27018:27017'
