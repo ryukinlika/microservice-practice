@@ -22,7 +22,7 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public Optional<Media> findById(String id) {
+    public Optional<Media> findById(UUID id) {
         return mediaRepository.findById(id);
     }
 
@@ -32,7 +32,7 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public void deleteMedia(String id) {
+    public void deleteMedia(UUID id) {
         if (!mediaRepository.existsById(id)) {
             throw new IllegalArgumentException("Media with ID " + id + " does not exist.");
         }

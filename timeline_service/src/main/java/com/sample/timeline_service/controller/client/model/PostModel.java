@@ -1,38 +1,33 @@
-package com.sample.post_service.entity;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.sample.timeline_service.controller.client.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "media")
-public class Media implements Serializable {
-
-    @Id
+public class PostModel {
+    @Nullable
     private UUID id;
-    private UUID userId;
-    private byte[] blobContent;
 
+    @Nullable
+    private UUID userId;
+
+    @Nullable
+    private String textContent;
+
+    @Nullable
+    private String mediaIds;
+
+    @Nullable
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdAt;
-
-    public Media(UUID userId, byte[] blobContent) {
-        this.id = UUID.randomUUID(); // Automatically generate a UUID for the ID
-        this.userId = userId;
-        this.blobContent = blobContent;
-        this.createdAt = LocalDateTime.now(); // Automatically set the creation time
-    }
 }

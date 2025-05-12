@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 import java.util.UUID;
 
-public interface MediaRepository extends MongoRepository<Media, String> {
+public interface MediaRepository extends MongoRepository<Media, UUID> {
     List<Media> findByUserId(UUID userId);
 }

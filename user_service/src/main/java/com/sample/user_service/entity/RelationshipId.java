@@ -3,16 +3,15 @@ package com.sample.user_service.entity;
 import java.io.Serializable;
 import java.util.UUID;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RelationshipId implements Serializable {
     public UUID followedId;
     public UUID followerId;
 
-    // default constructor
-
-    public RelationshipId(UUID followerId, UUID followedId) {
-        this.followedId = followedId;
-        this.followerId = followerId;
-    }
-
-    // equals() and hashCode()
 }

@@ -10,9 +10,9 @@ public interface MediaService {
 
     Media createMedia(Media media);
 
-    Optional<Media> findById(String id);
+    Optional<Media> findById(UUID id);
 
     List<Media> findByUserId(UUID userId);
 
-    void deleteMedia(String id);
+    void deleteMedia(UUID id);
 }

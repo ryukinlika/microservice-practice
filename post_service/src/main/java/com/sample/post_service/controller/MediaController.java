@@ -28,7 +28,11 @@ public class MediaController {
 
     @GetMapping("/{id}")
     public Optional<Media> findById(@PathVariable String id) {
-        return mediaService.findById(id);
+        if (!isValidUUID(id)) {
+            throw new IllegalArgumentException("Invalid UUID format for mediaId: " + id);
+        }
+        UUID mediaUUID = UUID.fromString(id);
+        return mediaService.findById(mediaUUID);
     }
 
     @GetMapping("/user/{userId}")
@@ -42,7 +46,11 @@ public class MediaController {
 
     @DeleteMapping("/{id}")
     public void deleteMedia(@PathVariable String id) {
-        mediaService.deleteMedia(id);
+        if (!isValidUUID(id)) {
+            throw new IllegalArgumentException("Invalid UUID format for mediaId: " + id);
+        }
+        UUID mediaUUID = UUID.fromString(id);
+        mediaService.deleteMedia(mediaUUID);
     }
 
     private boolean isValidUUID(String uuid) {

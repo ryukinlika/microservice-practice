@@ -1,12 +1,21 @@
 package com.sample.post_service.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
+@Data
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +30,8 @@ public class Post {
     @Column(name = "media_ids")
     private String mediaIds;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -30,43 +41,6 @@ public class Post {
         this.textContent = textContent;
         this.mediaIds = mediaIds;
         this.createdAt = LocalDateTime.now(); // Automatically set the creation time
-    }
-
-    // Getters and Setters
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    public String getTextContent() {
-        return textContent;
-    }
-
-    public void setTextContent(String textContent) {
-        this.textContent = textContent;
-    }
-
-    public String getMediaIds() {
-        return mediaIds;
-    }
-
-    public void setMediaIds(String mediaIds) {
-        this.mediaIds = mediaIds;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
 }
