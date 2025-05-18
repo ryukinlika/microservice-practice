@@ -20,9 +20,9 @@ public class FollowersModel {
     private UUID followerId;
 
     @Nullable
-    private UUID followingId;
+    private UUID followedId;
     
     @JsonSerialize(using=LocalDateTimeSerializer.class)
     @JsonDeserialize(using=LocalDateTimeDeserializer.class)
-    private LocalDateTime createdAt;
+    private LocalDateTime created_at;
 }

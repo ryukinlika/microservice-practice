@@ -2,6 +2,8 @@ package com.sample.post_service.controller;
 
 import com.sample.post_service.entity.Media;
 import com.sample.post_service.service.MediaService;
+
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +19,9 @@ public class MediaController {
     private MediaService mediaService;
 
     @PostMapping
-    public Media createMedia(@RequestParam String userId, @RequestParam byte[] blobContent) {
+    public Media createMedia(@RequestParam String userId, @RequestBody byte[] blobContent) throws BadRequestException {
         if (!isValidUUID(userId)) {
-            throw new IllegalArgumentException("Invalid UUID format for userId: " + userId);
+            throw new BadRequestException("Invalid UUID format for userId: " + userId);
         }
         UUID userUUID = UUID.fromString(userId);
         Media media = new Media(userUUID, blobContent);
@@ -27,30 +29,34 @@ public class MediaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Media> findById(@PathVariable String id) {
+    public Optional<Media> findById(@PathVariable String id) throws BadRequestException {
         if (!isValidUUID(id)) {
-            throw new IllegalArgumentException("Invalid UUID format for mediaId: " + id);
+            throw new BadRequestException("Invalid UUID format for mediaId: " + id);
         }
         UUID mediaUUID = UUID.fromString(id);
         return mediaService.findById(mediaUUID);
     }
 
     @GetMapping("/user/{userId}")
-    public List<Media> findByUserId(@PathVariable String userId) {
+    public List<Media> findByUserId(@PathVariable String userId) throws BadRequestException {
         if (!isValidUUID(userId)) {
-            throw new IllegalArgumentException("Invalid UUID format for userId: " + userId);
+            throw new BadRequestException("Invalid UUID format for userId: " + userId);
         }
         UUID userUUID = UUID.fromString(userId);
         return mediaService.findByUserId(userUUID);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteMedia(@PathVariable String id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteMedia(@PathVariable String id) throws BadRequestException {
         if (!isValidUUID(id)) {
-            throw new IllegalArgumentException("Invalid UUID format for mediaId: " + id);
+            throw new BadRequestException("Invalid UUID format for mediaId: " + id);
         }
         UUID mediaUUID = UUID.fromString(id);
-        mediaService.deleteMedia(mediaUUID);
+        try {
+            mediaService.deleteMedia(mediaUUID);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
     private boolean isValidUUID(String uuid) {

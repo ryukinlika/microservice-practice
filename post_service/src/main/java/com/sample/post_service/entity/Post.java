@@ -1,7 +1,9 @@
 package com.sample.post_service.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,6 +17,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 @Data
 @Entity
 @Table(name = "posts")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post implements Serializable {
 
     @Id

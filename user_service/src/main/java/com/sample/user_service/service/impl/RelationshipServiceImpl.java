@@ -36,7 +36,7 @@ public class RelationshipServiceImpl implements RelationshipService{
 
         if(!relRepo.existsById(rId)){
             logger.error("not followed in the first place!");
-            throw new RuntimeException("invalid input");
+            return true;
         };
 
         relRepo.deleteById(rId);

@@ -15,5 +15,7 @@ public interface UserService {
     void deleteUser(UUID id);
 
     Iterable<User> getAllUsers();
+
+    User getUserById(UUID id);
     
 }

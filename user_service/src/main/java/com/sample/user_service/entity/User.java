@@ -1,7 +1,6 @@
 package com.sample.user_service.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

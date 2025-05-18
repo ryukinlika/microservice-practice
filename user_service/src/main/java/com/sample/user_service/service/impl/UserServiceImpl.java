@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(UUID id){
         User userExist = userRepository.findById(id)
-        .orElseThrow(()-> new RuntimeException("deleting id " + id + " not found"));
+        .orElseThrow(()-> new IllegalArgumentException("deleting id " + id + " not found"));
         
         logger.info("deleting UUID: " + id + " username: " + userExist.getUsername() + " email: " + userExist.getEmail());
         userRepository.deleteById(id);
@@ -74,5 +74,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Iterable<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    @Override
+    public User getUserById(UUID id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @FeignClient(name = "post-service", url = "${client.post_service.url}")
 public interface PostClient {
-    @GetMapping("/post/user/{userId}")
+    @GetMapping("/posts/user/{userId}")
     @Nullable
     Iterable<PostModel> getPostsByUserId(@PathVariable("userId") UUID userId);
 }

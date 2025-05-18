@@ -13,9 +13,9 @@ import java.util.UUID;
 
 
 public interface RelationshipRepository extends CrudRepository<Relationship, RelationshipId>{
-    @Query("SELECT r FROM Relationship r WHERE r.followerId = :followerId")
-    List<Relationship> findByFollowerId(UUID followerId);
+    @Query("SELECT r FROM Relationship r WHERE r.followerId = :userid")
+    List<Relationship> findByFollowerId(UUID userid);
 
-    @Query("SELECT r FROM Relationship r WHERE r.followedId = :followedId")
-    List<Relationship> findByFollowedId(UUID followerId);
+    @Query("SELECT r FROM Relationship r WHERE r.followedId = :userid")
+    List<Relationship> findByFollowedId(UUID userid);
 }
